@@ -70,25 +70,25 @@ const Expertise: React.FC = () => {
                 style={{ backgroundImage: `url("${item.img}")` }}
               ></div>
 
-              <div className="absolute inset-0 p-4 md:p-10 z-20 flex flex-col justify-end">
-                <div className="mb-2 md:mb-4 transform group-hover:-translate-y-4 transition-transform duration-500">
-                  <span className="material-symbols-outlined text-3xl md:text-5xl text-white/40 group-hover:text-primary transition-colors duration-500">
+              <div className="absolute inset-0 p-3 sm:p-4 md:p-10 z-20 flex flex-col justify-end">
+                <div className="mb-1 sm:mb-2 md:mb-4 transform md:group-hover:-translate-y-4 transition-transform duration-500">
+                  <span className="material-symbols-outlined text-2xl sm:text-3xl md:text-5xl text-white/40 group-hover:text-primary transition-colors duration-500">
                     {item.icon}
                   </span>
                 </div>
 
-                <div className="transform translate-y-8 group-hover:translate-y-0 transition-all duration-500">
-                  <h3 className="text-xl md:text-3xl font-display font-bold uppercase text-white mb-1 md:mb-2">
+                <div className="md:transform md:translate-y-8 md:group-hover:translate-y-0 transition-all duration-500">
+                  <h3 className="text-base sm:text-xl md:text-3xl font-display font-bold uppercase text-white mb-0.5 sm:mb-1 md:mb-2">
                     {item.title}
                   </h3>
 
                   {/* Small desc visible by default */}
-                  <p className="text-white/70 font-body text-xs md:text-sm mb-2 md:mb-4 line-clamp-2">
+                  <p className="text-white/70 font-body text-[10px] sm:text-xs md:text-sm mb-1 sm:mb-2 md:mb-4 line-clamp-2">
                     {item.shortDesc}
                   </p>
 
-                  {/* Full info revealed on hover */}
-                  <div className="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+                  {/* Full info revealed on hover - hidden on mobile */}
+                  <div className="hidden md:block h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden">
                     <p className="text-white/50 font-body text-xs leading-relaxed mb-6">
                       {item.fullDesc}
                     </p>

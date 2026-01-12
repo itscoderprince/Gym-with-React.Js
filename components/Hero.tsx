@@ -93,7 +93,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* RIGHT: VISUALS (Responsive Height) */}
-        <div className="flex-1 w-full relative h-[40vh] md:h-[50vh] lg:h-[70vh] max-h-[700px] flex items-center justify-center lg:justify-end">
+        <div className="flex-1 w-full relative h-[50vh] md:h-[55vh] lg:h-[70vh] max-h-[700px] flex items-center justify-center lg:justify-end">
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
