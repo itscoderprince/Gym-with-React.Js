@@ -14,31 +14,55 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = ['Programs', 'Trainers', 'Membership', 'About'];
+  const navLinks = [
+    { label: 'Programs', href: 'programs' },
+    { label: 'Trainers', href: 'trainers' },
+    { label: 'About', href: 'about' },
+    { label: 'Contact', href: 'contact' },
+  ];
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setIsMenuOpen(false);
+  };
+
+  const scrollToStart = () => {
+    const element = document.getElementById('start-training');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <>
       <header className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled ? 'glass-panel h-16 py-0' : 'h-20 py-4 bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
-          <div className="flex items-center gap-2 group cursor-pointer">
+          <div className="flex items-center gap-2 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <span className="material-symbols-outlined text-3xl sm:text-4xl text-primary transform group-hover:rotate-12 transition-transform">fitness_center</span>
             <h1 className="text-lg sm:text-xl font-display font-bold uppercase tracking-tighter">Elite Fitness</h1>
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+              <button
+                key={item.label}
+                onClick={() => scrollToSection(item.href)}
                 className="text-sm font-display font-bold uppercase tracking-widest text-white/70 hover:text-primary transition-colors"
               >
-                {item}
-              </a>
+                {item.label}
+              </button>
             ))}
           </nav>
 
           <div className="flex items-center gap-4">
-            <button className="hidden md:block bg-primary hover:bg-red-700 transition-all btn-glow text-white text-xs font-display font-bold uppercase tracking-widest px-6 py-2.5 rounded-sm">
+            <button
+              onClick={scrollToStart}
+              className="hidden md:block bg-primary hover:bg-red-700 transition-all btn-glow text-white text-xs font-display font-bold uppercase tracking-widest px-6 py-2.5 rounded-sm"
+            >
               Start Training
             </button>
             <button
@@ -58,49 +82,80 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-lg md:hidden"
+            className="fixed inset-0 z-[100] md:hidden h-screen"
           >
+            {/* Background Layers */}
+            <div className="absolute inset-0 bg-black z-0"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-rose-950/20 to-black z-0"></div>
+            <div className="absolute inset-0 opacity-10 [mask-image:radial-gradient(ellipse_at_center,black,transparent)] z-0" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.3 }}
-              className="absolute inset-0 flex flex-col p-6"
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="absolute inset-0 flex flex-col p-6 z-10 overflow-y-auto"
             >
-              {/* Close Button */}
-              <div className="flex justify-end mb-12">
-                <button onClick={() => setIsMenuOpen(false)} className="text-white p-2">
-                  <span className="material-symbols-outlined text-4xl">close</span>
+              {/* Header */}
+              <div className="flex items-center justify-between mb-8 flex-shrink-0">
+                <div className="flex items-center gap-2" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMenuOpen(false); }}>
+                  <span className="material-symbols-outlined text-2xl text-primary">fitness_center</span>
+                  <span className="font-display font-bold uppercase tracking-tighter text-lg">Elite Fitness</span>
+                </div>
+                <button onClick={() => setIsMenuOpen(false)} className="size-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white">
+                  <span className="material-symbols-outlined text-2xl">close</span>
                 </button>
               </div>
 
               {/* Nav Links */}
-              <nav className="flex flex-col gap-6 flex-1">
+              <nav className="flex flex-col gap-3 mb-8">
+                <p className="text-[10px] font-display font-bold uppercase tracking-widest text-white/30 mb-1">Navigation</p>
                 {navLinks.map((item, idx) => (
-                  <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    onClick={() => setIsMenuOpen(false)}
-                    initial={{ opacity: 0, x: 50 }}
+                  <motion.button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.href)}
+                    initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="text-3xl font-display font-bold uppercase tracking-tight text-white hover:text-primary transition-colors"
+                    transition={{ delay: 0.1 + idx * 0.1 }}
+                    className="text-3xl font-display font-bold uppercase tracking-tight text-white hover:text-primary transition-colors text-left flex items-center justify-between group"
                   >
-                    {item}
-                  </motion.a>
+                    <span>{item.label}</span>
+                    <span className="material-symbols-outlined text-primary opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-2xl">arrow_outward</span>
+                  </motion.button>
                 ))}
               </nav>
 
-              {/* CTA Button */}
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                onClick={() => setIsMenuOpen(false)}
-                className="w-full bg-primary hover:bg-red-700 transition-all btn-glow text-white text-lg font-display font-bold uppercase tracking-widest py-5 rounded-sm"
-              >
-                Start Training
-              </motion.button>
+              {/* Contact Section */}
+              <div className="mt-auto pt-6 border-t border-white/5 space-y-6 flex-shrink-0">
+                <div className="grid grid-cols-1 gap-4">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <p className="text-[10px] font-display font-bold uppercase tracking-widest text-white/30 mb-1">Visit Us</p>
+                    <p className="text-sm text-white/60 leading-relaxed font-light">123 Elite Fitness Blvd, Los Angeles, CA</p>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <p className="text-[10px] font-display font-bold uppercase tracking-widest text-white/30 mb-1">Contact</p>
+                    <p className="text-base text-white font-medium tracking-wide">+1 (555) ELITE-99</p>
+                  </motion.div>
+                </div>
+
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  onClick={scrollToStart}
+                  className="w-full bg-primary hover:bg-red-700 transition-all btn-glow text-white text-base font-display font-bold uppercase tracking-widest py-4 rounded-sm"
+                >
+                  Start Training
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
         )}

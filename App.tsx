@@ -6,6 +6,8 @@ import Expertise from './components/Expertise';
 import WhyElite from './components/WhyElite';
 import Coaches from './components/Coaches';
 import Testimonials from './components/Testimonials';
+import StartTraining from './components/StartTraining';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
@@ -18,6 +20,8 @@ const App: React.FC = () => {
         <WhyElite />
         <Coaches />
         <Testimonials />
+        <StartTraining />
+        <Contact />
       </main>
       <Footer />
     </div>

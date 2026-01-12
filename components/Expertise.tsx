@@ -70,29 +70,27 @@ const Expertise: React.FC = () => {
                 style={{ backgroundImage: `url("${item.img}")` }}
               ></div>
 
-              <div className="absolute inset-0 p-3 sm:p-4 md:p-10 z-20 flex flex-col justify-end">
-                <div className="mb-1 sm:mb-2 md:mb-4 transform md:group-hover:-translate-y-4 transition-transform duration-500">
-                  <span className="material-symbols-outlined text-2xl sm:text-3xl md:text-5xl text-white/40 group-hover:text-primary transition-colors duration-500">
+              <div className="absolute inset-0 p-3 sm:p-4 md:p-5 z-20 flex flex-col justify-end">
+                <div className="flex items-center gap-2 mb-1 md:mb-2 transform md:group-hover:-translate-y-2 transition-transform duration-300 ease-out">
+                  <span className="material-symbols-outlined text-xl sm:text-2xl md:text-3xl text-white/50 group-hover:text-primary transition-colors duration-300">
                     {item.icon}
                   </span>
-                </div>
-
-                <div className="md:transform md:translate-y-8 md:group-hover:translate-y-0 transition-all duration-500">
-                  <h3 className="text-base sm:text-xl md:text-3xl font-display font-bold uppercase text-white mb-0.5 sm:mb-1 md:mb-2">
+                  <h3 className="text-sm sm:text-lg md:text-2xl font-display font-bold uppercase text-white">
                     {item.title}
                   </h3>
+                </div>
 
-                  {/* Small desc visible by default */}
-                  <p className="text-white/70 font-body text-[10px] sm:text-xs md:text-sm mb-1 sm:mb-2 md:mb-4 line-clamp-2">
+                <div className="md:transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                  <p className="text-white/60 font-body text-[10px] sm:text-xs md:text-sm leading-relaxed line-clamp-2">
                     {item.shortDesc}
                   </p>
 
                   {/* Full info revealed on hover - hidden on mobile */}
-                  <div className="hidden md:block h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden">
-                    <p className="text-white/50 font-body text-xs leading-relaxed mb-6">
+                  <div className="hidden md:block max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-300 ease-out overflow-hidden">
+                    <p className="text-white/40 font-body text-xs leading-relaxed mt-2 mb-3">
                       {item.fullDesc}
                     </p>
-                    <div className="w-16 h-[2px] bg-primary mb-2"></div>
+                    <div className="w-12 h-[2px] bg-primary"></div>
                   </div>
                 </div>
               </div>

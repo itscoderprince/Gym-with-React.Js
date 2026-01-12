@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative bg-black border-t border-white/10 pt-12 md:pt-20 overflow-hidden">
+    <footer className="relative bg-black border-t border-white/10 pt-12 md:pt-16 overflow-hidden">
 
       {/* Background Gradient Spot */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
 
         {/* Top Section: Brand & Newsletter */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 mb-12 md:mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 mb-12 md:mb-16">
 
           {/* Brand Column */}
           <div className="flex flex-col gap-6">
@@ -86,7 +86,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Middle Section: Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-24 border-t border-white/5 pt-8 md:pt-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-12 border-t border-white/5 pt-8 md:pt-10">
 
           {/* Column 1 */}
           <div>

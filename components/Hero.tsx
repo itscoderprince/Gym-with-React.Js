@@ -2,26 +2,24 @@ import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Hero: React.FC = () => {
-  // 1. Re-introduced Scroll Hooks for the background parallax effect
+  // Parallax effect for the background image
   const { scrollY } = useScroll();
   const backgroundY = useTransform(scrollY, [0, 1000], [0, 200]);
 
   return (
-    <section className="relative w-full min-h-[85vh] md:min-h-screen bg-black overflow-hidden flex items-start pt-20 md:pt-24 lg:pt-28">
+    <section className="relative min-h-screen w-full flex flex-col justify-center items-center pt-24 md:pt-28 pb-16 px-4 md:px-8 overflow-hidden bg-black">
 
-      {/* --- INTEGRATED OLD BACKGROUND --- */}
+      {/* --- BACKGROUND LAYERS --- */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Gradient Overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-10"></div>
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#2a1518]/70 via-black to-black z-10"></div>
 
-        {/* Background Image Texture */}
+        {/* Parallax Background Image */}
         <motion.div
           initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.4 }} // Kept opacity low (0.4) for texture effect
+          animate={{ scale: 1, opacity: 0.3 }}
           transition={{ duration: 1.5 }}
           style={{
-            // Using a high-quality gym texture image here. 
-            // You can replace this URL with 'https://lh3.googleusercontent.com/aida-public/AB6AXuB9aTRV2dpXhWqTyOyVKee6UoxnPCnX2IL_4vMF5t0FQ2JXgeEj_FcHmWTDgb-F2Nxv4fxfEda2xeIaWfq2_Gu-BBU6BfLAe_njfkerJBzgShMgxBlmvX-ktiIim8Rliyc8wU_47jYL5q7Er62dmB5hmJsgeC2CNiY0cIMh5fK8JautGiA-qbQhm7YyqCitxuS2QKfdu82DWwxwnqpl3iIxcKNughwov014Z6xps_6EGS-5lCEKSYAs7pd--9_fhbwPzkWZOMvq_A' if you prefer your specific image.
             backgroundImage: 'url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop")',
             y: backgroundY
           }}
@@ -29,116 +27,135 @@ const Hero: React.FC = () => {
         ></motion.div>
       </div>
 
-      {/* Grid Pattern (Optional: Kept very subtle on top of the image for extra texture) */}
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black/20 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-10"></div>
+      {/* Radial Glow Top Right */}
+      <div className="absolute top-0 right-0 w-2/3 h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-rose-500/10 via-transparent to-transparent opacity-60 z-0"></div>
 
-      {/* --- CONTENT CONTAINER (Professional "Big Image" Layout) --- */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 w-full relative z-20 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8">
+      {/* --- MAIN CONTENT --- */}
+      <div className="max-w-[1200px] w-full z-10 flex flex-col lg:flex-row items-center gap-10 lg:gap-8 mt-4">
 
         {/* LEFT: TEXT CONTENT */}
-        <div className="flex-1 text-center lg:text-left pt-8 lg:pt-0">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex-1 text-center lg:text-left flex flex-col gap-5 lg:items-start items-center"
+        >
+          {/* Heading */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tighter text-white">
+            RUN <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-rose-300">FASTER.</span><br />
+            GO FARTHER.
+          </h1>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-bold tracking-tighter text-white mb-4 md:mb-6 font-display leading-[0.95]"
-          >
-            Forging <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-200 to-neutral-500">
-              Elite Status.
-            </span>
-          </motion.h1>
+          {/* Subtext */}
+          <p className="text-base md:text-lg text-white/60 max-w-lg leading-relaxed font-light">
+            Experience the pinnacle of fitness in an environment designed for the elite. Where raw power meets refined luxury.
+          </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-4 md:mt-6 text-neutral-300 text-sm md:text-lg lg:text-xl max-w-lg mx-auto lg:mx-0 leading-relaxed font-light"
-          >
-            Advanced biomechanics meets raw intensity. We don't just train bodies; we re-engineer human performance for the modern age.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 md:gap-5"
-          >
-            <button className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-primary hover:bg-primary/90 text-white rounded-md font-bold uppercase tracking-widest text-xs md:text-sm transition-all shadow-[0_0_20px_rgba(218,11,46,0.4)] hover:shadow-[0_0_30px_rgba(218,11,46,0.6)] hover:-translate-y-1">
-              Start Journey
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-2 w-full sm:w-auto items-stretch">
+            <button className="flex items-center justify-center gap-2 bg-primary hover:bg-red-700 transition-all btn-glow text-white text-sm font-display font-bold uppercase tracking-widest h-14 px-10 rounded-sm hover:-translate-y-1">
+              <span>Start Free Trial</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
             </button>
-            <button className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-transparent border border-white/20 text-white rounded-md font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-white/5 transition-all flex items-center justify-center gap-2 group">
-              <span>View Programs</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+
+            <button className="flex items-center justify-center gap-2 bg-transparent border border-white/20 text-white hover:bg-white/5 font-display font-bold uppercase tracking-widest h-14 px-10 rounded-sm transition-all group text-sm hover:-translate-y-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white group-hover:scale-110 transition-transform"><circle cx="12" cy="12" r="10" /><polygon points="10 8 16 12 10 16 10 8" /></svg>
+              <span>Watch Video</span>
             </button>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="mt-8 md:mt-12 flex items-center justify-center lg:justify-start gap-6 md:gap-10 border-t border-white/10 pt-6 md:pt-8"
-          >
-            <div>
-              <h3 className="text-2xl md:text-3xl font-display font-bold text-white">500+</h3>
-              <p className="text-xs text-neutral-400 uppercase tracking-widest mt-1">Athletes</p>
+          {/* Social Proof / Mini Stats */}
+          <div className="mt-4 flex items-center gap-6 opacity-80">
+            <div className="flex -space-x-3">
+              {[1, 2, 3].map((i) => (
+                <img
+                  key={i}
+                  alt="Member Avatar"
+                  className="h-10 w-10 rounded-full border-2 border-black object-cover grayscale"
+                  src={`https://i.pravatar.cc/100?img=${i + 10}`}
+                />
+              ))}
+              <div className="h-10 w-10 rounded-full border-2 border-black bg-rose-900 flex items-center justify-center text-xs font-bold text-white">
+                +2k
+              </div>
             </div>
-            <div className="w-px h-12 bg-white/10"></div>
-            <div>
-              <h3 className="text-2xl md:text-3xl font-display font-bold text-white">98%</h3>
-              <p className="text-xs text-neutral-400 uppercase tracking-widest mt-1">Success</p>
+
+            <div className="flex flex-col">
+              <div className="flex text-rose-500 text-sm">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <svg key={star} xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                ))}
+              </div>
+              <span className="text-[10px] text-white/60 uppercase tracking-widest">5.0 Rating from our elite members</span>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
-        {/* RIGHT: VISUALS (Responsive Height) */}
-        <div className="flex-1 w-full relative h-[50vh] md:h-[55vh] lg:h-[70vh] max-h-[700px] flex items-center justify-center lg:justify-end">
+        {/* RIGHT: VISUAL CONTENT */}
+        <div className="flex-1 relative w-full flex justify-center lg:justify-end mt-4 lg:mt-0">
 
+          {/* Decorative Back Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-rose-500/20 blur-[100px] rounded-full z-0 pointer-events-none"></div>
+
+          {/* Main Image Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="relative w-full max-w-[600px] h-full"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="relative z-10 w-full max-w-[480px] h-[550px] rounded-sm overflow-hidden group border border-white/10"
           >
-            {/* Main Image Container */}
-            <div className="absolute inset-0 z-10 rounded-sm overflow-hidden border border-white/10 shadow-2xl bg-neutral-900">
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-20 opacity-40"></div>
-              <img
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop"
-                alt="Pro Athlete"
-                className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-1000"
-              />
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-40 z-20"></div>
 
-            {/* Floating Glass Card - Heart Rate (Hidden on mobile to avoid overlap) */}
+            <img
+              alt="Muscular trainer lifting dumbbells"
+              className="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition-all duration-700"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi9tcYlMo3V7br6IIHfQ5J0tQqvgx48d06FSrCawWATqww7aa667RREPWeIPw1LzARgqA_Ur8v12HSP4hIYdfK7BbDsNuztGqZJ_VPfKa-kPFucn-WOz9cDJwrPTyalFVQ5KDtT6uCdO3hUa40OLOylKeRBlVsRB2aQmzRbWuNYt6bqS8D3MlQCYDaDjyhiXICVMKMgemYH4ky3xYmyEIqm-2ss7n5NI7PN12LdQV5WjFzBhdHUUb4L0uJjkM3BjsAVlfqB545Og"
+            />
+
+            {/* Floating Stats - Heart Rate (Top Left) */}
             <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="hidden md:block absolute bottom-8 -left-12 bg-black/80 backdrop-blur-xl border border-white/10 p-5 rounded-md shadow-2xl z-30 min-w-[220px]"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-6 left-6 bg-black/40 backdrop-blur-md border border-white/10 p-4 rounded-xl flex items-center gap-3 z-30"
             >
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-xs text-neutral-400 uppercase tracking-wider font-bold">Live Metrics</span>
-                <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.6)]"></div>
+              <div className="h-8 w-8 rounded-full bg-red-500/20 flex items-center justify-center text-rose-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
               </div>
-              <div className="flex items-end gap-1 h-10">
-                {[35, 55, 40, 70, 50, 90, 60, 85, 45].map((h, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ height: "20%" }}
-                    animate={{ height: `${h}%` }}
-                    transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse", delay: i * 0.1 }}
-                    className="flex-1 bg-primary rounded-sm"
-                  />
-                ))}
-              </div>
-              <div className="mt-2 text-right">
-                <span className="text-2xl font-bold text-white font-display">184</span> <span className="text-xs text-neutral-500">BPM</span>
+              <div>
+                <p className="text-[10px] text-white/60 uppercase tracking-widest leading-none mb-1">Heart Rate</p>
+                <p className="text-base font-bold text-white leading-none">145 <span className="text-[10px] font-normal text-white/60">bpm</span></p>
               </div>
             </motion.div>
 
+            {/* Floating Stats - Goals (Bottom Right) */}
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute bottom-10 right-6 bg-black/40 backdrop-blur-md border border-white/10 p-5 rounded-xl flex flex-col gap-2 z-30 w-44 shadow-xl"
+            >
+              <div className="flex justify-between items-end">
+                <span className="text-[10px] text-white/60 font-medium tracking-widest uppercase">Daily Goal</span>
+                <span className="text-xs text-rose-500 font-bold">85%</span>
+              </div>
+              <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "85%" }}
+                  transition={{ duration: 1.5, delay: 0.5 }}
+                  className="h-full bg-rose-500 rounded-full"
+                />
+              </div>
+              <div className="mt-1 flex items-center justify-between text-white">
+                <div className="flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-yellow-500"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+                  <span className="text-sm font-bold">450</span>
+                </div>
+                <span className="text-[10px] text-white/40 font-bold">CAL</span>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
+
       </div>
     </section>
   );
