@@ -82,7 +82,7 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] md:hidden h-screen"
+            className="fixed inset-0 z-[100] md:hidden h-[100dvh]"
           >
             {/* Background Layers */}
             <div className="absolute inset-0 bg-black z-0"></div>
@@ -94,22 +94,22 @@ const Navbar: React.FC = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute inset-0 flex flex-col p-6 z-10 overflow-y-auto"
+              className="absolute inset-0 flex flex-col p-5 sm:p-6 z-10 overflow-y-auto"
             >
               {/* Header */}
-              <div className="flex items-center justify-between mb-8 flex-shrink-0">
+              <div className="flex items-center justify-between mb-6 flex-shrink-0">
                 <div className="flex items-center gap-2" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMenuOpen(false); }}>
-                  <span className="material-symbols-outlined text-2xl text-primary">fitness_center</span>
-                  <span className="font-display font-bold uppercase tracking-tighter text-lg">Elite Fitness</span>
+                  <span className="material-symbols-outlined text-xl text-primary">fitness_center</span>
+                  <span className="font-display font-bold uppercase tracking-tighter text-base">Elite Fitness</span>
                 </div>
-                <button onClick={() => setIsMenuOpen(false)} className="size-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white">
-                  <span className="material-symbols-outlined text-2xl">close</span>
+                <button onClick={() => setIsMenuOpen(false)} className="size-9 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white">
+                  <span className="material-symbols-outlined text-xl">close</span>
                 </button>
               </div>
 
               {/* Nav Links */}
-              <nav className="flex flex-col gap-3 mb-8">
-                <p className="text-[10px] font-display font-bold uppercase tracking-widest text-white/30 mb-1">Navigation</p>
+              <nav className="flex flex-col gap-2.5 mb-6">
+                <p className="text-[9px] font-display font-bold uppercase tracking-widest text-white/20 mb-1">Navigation</p>
                 {navLinks.map((item, idx) => (
                   <motion.button
                     key={item.label}
@@ -117,32 +117,32 @@ const Navbar: React.FC = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + idx * 0.1 }}
-                    className="text-3xl font-display font-bold uppercase tracking-tight text-white hover:text-primary transition-colors text-left flex items-center justify-between group"
+                    className="text-2xl font-display font-bold uppercase tracking-tight text-white/90 hover:text-primary transition-colors text-left flex items-center justify-between group py-1"
                   >
                     <span>{item.label}</span>
-                    <span className="material-symbols-outlined text-primary opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-2xl">arrow_outward</span>
+                    <span className="material-symbols-outlined text-primary opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-xl">arrow_outward</span>
                   </motion.button>
                 ))}
               </nav>
 
               {/* Contact Section */}
-              <div className="mt-auto pt-6 border-t border-white/5 space-y-6 flex-shrink-0">
-                <div className="grid grid-cols-1 gap-4">
+              <div className="mt-auto pt-5 border-t border-white/5 space-y-5 flex-shrink-0">
+                <div className="grid grid-cols-2 gap-4">
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <p className="text-[10px] font-display font-bold uppercase tracking-widest text-white/30 mb-1">Visit Us</p>
-                    <p className="text-sm text-white/60 leading-relaxed font-light">123 Elite Fitness Blvd, Los Angeles, CA</p>
+                    <p className="text-[9px] font-display font-bold uppercase tracking-widest text-white/20 mb-1">Visit Us</p>
+                    <p className="text-[11px] text-white/50 leading-relaxed font-light line-clamp-2">123 Elite Fitness Blvd, Los Angeles, CA</p>
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
                   >
-                    <p className="text-[10px] font-display font-bold uppercase tracking-widest text-white/30 mb-1">Contact</p>
-                    <p className="text-base text-white font-medium tracking-wide">+1 (555) ELITE-99</p>
+                    <p className="text-[9px] font-display font-bold uppercase tracking-widest text-white/20 mb-1">Contact</p>
+                    <p className="text-sm text-white/80 font-medium tracking-wide">+1 (555) ELITE-99</p>
                   </motion.div>
                 </div>
 
@@ -151,7 +151,7 @@ const Navbar: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                   onClick={scrollToStart}
-                  className="w-full bg-primary hover:bg-red-700 transition-all btn-glow text-white text-base font-display font-bold uppercase tracking-widest py-4 rounded-sm"
+                  className="w-full bg-primary hover:bg-red-700 transition-all btn-glow text-white text-xs font-display font-bold uppercase tracking-widest py-3.5 rounded-sm"
                 >
                   Start Training
                 </motion.button>
